@@ -25,3 +25,16 @@ installation. That steps are include:
   ```
 
 * Enable [PAM](http://en.wikipedia.org/wiki/Pluggable_authentication_modules).
+
+
+## Usage
+
+The example below uses `sudo` to play book on your localhost via local
+connection.
+
+```bash
+ansible-playbook playbook.yml \
+    -i hosts.example \
+    -l local -c local \
+    -s --ask-sudo-pass
+ ```
