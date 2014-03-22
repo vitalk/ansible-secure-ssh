@@ -5,8 +5,7 @@
 - hosts: all
 
   vars_files:
-    - vars/os_defaults.yml
-    - vars/{{ ansible_os_family }}.yml
+    - [ "vars/{{ ansible_os_family }}.yml", vars/os_defaults.yml ]
 
   tasks:
 
