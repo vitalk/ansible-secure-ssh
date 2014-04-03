@@ -3,29 +3,5 @@
 # Some simple steps that allow to improve security of your SSH.
 #
 - hosts: all
-
-  vars_files:
-    - [ "vars/{{ ansible_os_family }}.yml", vars/os_defaults.yml ]
-
-  tasks:
-
-    - name: Disable empty password login
-      lineinfile: dest={{ sshd_config }} regexp="^#?PermitEmptyPasswords" line="PermitEmptyPasswords no"
-      notify: restart sshd
-
-    - name: Disable remote root login
-      lineinfile: dest={{ sshd_config }} regexp="^#?PermitRootLogin" line="PermitRootLogin no"
-      notify: restart sshd
-
-    - name: Disable password login
-      lineinfile: dest={{ sshd_config }} regexp="^#?PasswordAuthentication" line="PasswordAuthentication no"
-      notify: restart sshd
-
-    - name: Enable PAM
-      lineinfile: dest={{ sshd_config }} regexp="^#?UsePAM" line="UsePAM yes"
-      notify: restart sshd
-
-  handlers:
-
-    - name: restart sshd
-      service: name={{ sshd }} state=restarted
+  roles:
+    - ssh

@@ -38,3 +38,15 @@ ansible-playbook playbook.yml \
     -l local -c local \
     -s --ask-sudo-pass
  ```
+
+**Note**. The desired behavior can be refined via variables.
+
+```yaml
+# file: roles/ssh/vars/main.yml
+
+# The name of ssh daemon
+sshd: ssh
+
+# Where is ssh config is located at
+sshd_config: /etc/ssh/sshd_config
+```
