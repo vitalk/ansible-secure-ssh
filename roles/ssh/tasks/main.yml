@@ -1,4 +1,9 @@
 ---
+- name: Add identity key to authorized keys on host
+  authorized_key: user={{ ssh_user }}
+    key="{{ lookup('file', ssh_identity_key) }}"
+  when: ssh_identity_key is defined and ssh_user is defined
+
 - name: Disable empty password login
   lineinfile: dest={{ sshd_config }} regexp="^#?PermitEmptyPasswords" line="PermitEmptyPasswords no"
   notify: restart sshd
