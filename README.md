@@ -9,20 +9,10 @@ installation. That steps are include:
 * Disable remote root login. The preferred way to gain root permissions is use
   `su` or `sudo` command.
 
-* Disable password login. Before doing that step ensure that you add your
-  public key into `~/.ssh/authorized_keys` on remote host.
+* Add your identity key to `~/.ssh/authorized_keys` on remote host for
+  passwordless login.
 
-  ```bash
-  # Create a your public and private keys (if no exists)
-  ssh-keygen -f identity
-
-  # Copy your public key to remote host
-  ssh-copy-id -i ~/.ssh/identity.pub remote-host
-
-  # Note. Mac OSX does not provide ssh-copy-id program,
-  # so your can use the command
-  ssh remote-host 'mkdir -p .ssh'; cat >> ~/.ssh/authorized_keys' < ~/.ssh/identity.pub
-  ```
+* Disable password login (done only if previous step is successful).
 
 * Enable [PAM](http://en.wikipedia.org/wiki/Pluggable_authentication_modules).
 
@@ -31,22 +21,19 @@ Role Variables
 
 The desired behavior can be refined via variables.
 
-```yaml
-# file: roles/ssh/defaults/main.yml
-
-# The name of ssh daemon
-sshd: ssh
-
-# Where is ssh config is located at
-sshd_config: /etc/ssh/sshd_config
-```
+Option | Description
+--- | ---
+`sshd` | Name of ssh daemon, default is `ssh`.
+`sshd_config` | Path to ssh daemon config, default is `/etc/ssh/sshd_config`.
+`ssh_identity_key` | Path to your identity key. Added to `~/.ssh/authorized_keys` on remote host if both `ssh_identity_key` and `ssh_user` are defined. Default is `undefined`.
+`ssh_user` | Username on remote host whose authorized keys will be modified. Uses only if `ssh_identity_key` is defined. Default is `undefined`.
 
 For example, you can override default variables by passing it as a parameter to
 the role like so:
 
 ```yaml
 roles:
-    - { role: ssh, sshd_config: /etc/sshd_config }
+    - { role: ssh, ssh_user: vital, ssh_identity_key: /home/vital/.ssh/id_rsa.pub }
 ```
 
 Or send them via command line:
