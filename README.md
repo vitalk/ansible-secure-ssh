@@ -41,6 +41,20 @@ sshd: ssh
 sshd_config: /etc/ssh/sshd_config
 ```
 
+For example, you can override default variables by passing it as a parameter to
+the role like so:
+
+```yaml
+roles:
+    - { role: ssh, sshd_config: /etc/sshd_config }
+```
+
+Or send them via command line:
+
+```bash
+ansible-playbook test.yml --extra-vars "sshd_config=/etc/sshd_config"
+```
+
 Example Playbook
 ----------------
 
