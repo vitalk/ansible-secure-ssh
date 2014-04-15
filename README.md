@@ -32,7 +32,7 @@ Role Variables
 The desired behavior can be refined via variables.
 
 ```yaml
-# file: roles/ssh/vars/main.yml
+# file: roles/ssh/defaults/main.yml
 
 # The name of ssh daemon
 sshd: ssh
