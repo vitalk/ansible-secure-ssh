@@ -1,5 +1,5 @@
-What is it?
------------
+Secure SSH
+==========
 
 This document describes some simple steps that improve the security of your SSH
 installation. That steps are include:
@@ -26,23 +26,13 @@ installation. That steps are include:
 
 * Enable [PAM](http://en.wikipedia.org/wiki/Pluggable_authentication_modules).
 
+Role Variables
+--------------
 
-## Usage
-
-The example below uses `sudo` to play book on your localhost via local
-connection.
-
-```bash
-ansible-playbook playbook.yml \
-    -i hosts.example \
-    -l local -c local \
-    -s --ask-sudo-pass
- ```
-
-**Note**. The desired behavior can be refined via variables.
+The desired behavior can be refined via variables.
 
 ```yaml
-# file: roles/ssh/vars/main.yml
+# file: roles/ssh/defaults/main.yml
 
 # The name of ssh daemon
 sshd: ssh
@@ -50,3 +40,49 @@ sshd: ssh
 # Where is ssh config is located at
 sshd_config: /etc/ssh/sshd_config
 ```
+
+For example, you can override default variables by passing it as a parameter to
+the role like so:
+
+```yaml
+roles:
+    - { role: ssh, sshd_config: /etc/sshd_config }
+```
+
+Or send them via command line:
+
+```bash
+ansible-playbook test.yml --extra-vars "sshd_config=/etc/sshd_config"
+```
+
+Example Playbook
+----------------
+
+The example below uses `sudo` to play book on your localhost via local
+connection.
+
+```bash
+ansible-playbook test.yml \
+    -i hosts.example \
+    -c local \
+    -s --ask-sudo-pass
+ ```
+
+```yaml
+# file: test.yml
+- hosts: local
+  roles:
+    - { role: ssh, sshd: ssh, sshd_config: /etc/sshd_config }
+```
+
+License
+-------
+
+Licensed under the [MIT license](http://mit-license.org/vitalk).
+
+Author Information
+------------------
+
+Created by Vital Kudzelka.
+
+Don't hesitate create [a GitHub Issue](https://github.com/vitalk/ansible-secure-ssh/issues) if you have any bugs or suggestions.

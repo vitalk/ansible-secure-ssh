@@ -1,0 +1,20 @@
+---
+galaxy_info:
+  author: Vital Kudzelka
+  description: Improve the security of your SSH installation
+  license: MIT
+  min_ansible_version: 1.2
+  platforms:
+  - name: Darwin
+    versions:
+    - all
+  - name: Debian
+    versions:
+    - all
+  - name: Ubuntu
+    versions:
+    - all
+  categories:
+  - networking
+  - system
+dependencies: []
