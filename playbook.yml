@@ -1,7 +1,0 @@
----
-#
-# Some simple steps that allow to improve security of your SSH.
-#
-- hosts: all
-  roles:
-    - ssh
