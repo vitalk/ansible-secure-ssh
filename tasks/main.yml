@@ -6,18 +6,18 @@
   when: ssh_identity_key is defined and ssh_user is defined
 
 - name: Disable empty password login
-  lineinfile: dest={{ sshd_config }} regexp="^#?PermitEmptyPasswords" line="PermitEmptyPasswords no"
+  lineinfile: dest={{ sshd_config }} regexp="^#?PermitEmptyPasswords" line="PermitEmptyPasswords no" validate="sshd -t -f %s"
   notify: restart sshd
 
 - name: Disable remote root login
-  lineinfile: dest={{ sshd_config }} regexp="^#?PermitRootLogin" line="PermitRootLogin no"
+  lineinfile: dest={{ sshd_config }} regexp="^#?PermitRootLogin" line="PermitRootLogin no" validate="sshd -t -f %s"
   notify: restart sshd
 
 - name: Disable password login
-  lineinfile: dest={{ sshd_config }} regexp="^#?PasswordAuthentication" line="PasswordAuthentication no"
+  lineinfile: dest={{ sshd_config }} regexp="^#?PasswordAuthentication" line="PasswordAuthentication no" validate="sshd -t -f %s"
   when: add_identity_key|success and not add_identity_key|skipped
   notify: restart sshd
 
 - name: Enable PAM
-  lineinfile: dest={{ sshd_config }} regexp="^#?UsePAM" line="UsePAM yes"
+  lineinfile: dest={{ sshd_config }} regexp="^#?UsePAM" line="UsePAM yes" validate="sshd -t -f %s"
   notify: restart sshd
