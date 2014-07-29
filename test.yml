@@ -1,3 +1,4 @@
+---
 - hosts: local
   roles:
-    - { role: ssh, sshd: ssh, sshd_config: /etc/sshd_config }
+    - { role: ., sshd: ssh, sshd_config: /etc/sshd_config }

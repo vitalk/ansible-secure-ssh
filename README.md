@@ -33,7 +33,7 @@ the role like so:
 
 ```yaml
 roles:
-    - { role: ssh, ssh_user: vital, ssh_identity_key: /home/vital/.ssh/id_rsa.pub }
+    - { role: ., ssh_user: vital, ssh_identity_key: /home/vital/.ssh/id_rsa.pub }
 ```
 
 Or send them via command line:
@@ -59,7 +59,7 @@ ansible-playbook test.yml \
 # file: test.yml
 - hosts: local
   roles:
-    - { role: ssh, sshd: ssh, sshd_config: /etc/sshd_config }
+    - { role: ., sshd: ssh, sshd_config: /etc/sshd_config }
 ```
 
 License
