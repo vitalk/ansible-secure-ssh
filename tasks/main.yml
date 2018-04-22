@@ -15,7 +15,7 @@
 
 - name: Disable password login
   lineinfile: dest={{ sshd_config }} regexp="^#?PasswordAuthentication" line="PasswordAuthentication no"
-  when: add_identity_key|success and not add_identity_key|skipped
+  when: add_identity_key is success and not add_identity_key is skipped
   notify: restart sshd
 
 - name: Enable PAM
